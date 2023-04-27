@@ -7,6 +7,8 @@ package lordsofsteel;
 
 public class LordsOfSteel {
     public static void main(String[] args) {
-
+        Nan n1 = new Nan(8, 6, 13, 16, 16, new Arma("Daga"));
+        
+        System.out.println("Punts de dany de n1: " + n1.getPD());
     } 
 }
