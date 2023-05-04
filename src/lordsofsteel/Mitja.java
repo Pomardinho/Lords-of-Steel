@@ -6,8 +6,8 @@
 package lordsofsteel;
 
 public class Mitja extends Personatge {
-    public Mitja(int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
-        super(FOR, CON, VEL, INT, SOR, arma);
+    public Mitja(String nom, int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
+        super(nom, FOR, CON, VEL, INT, SOR, arma);
     }
     
     @Override

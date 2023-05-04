@@ -6,8 +6,8 @@
 package lordsofsteel;
 
 public class Huma extends Personatge {
-    public Huma(int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
-        super(FOR, CON, VEL, INT, SOR, arma);
+    public Huma(String nom, int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
+        super(nom, FOR, CON, VEL, INT, SOR, arma);
     }
     
     @Override

@@ -6,8 +6,8 @@
 package lordsofsteel;
 
 public class Nan extends Personatge {
-    public Nan(int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
-        super(FOR, CON, VEL, INT, SOR, arma);
+    public Nan(String nom, int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
+        super(nom, FOR, CON, VEL, INT, SOR, arma);
     }
     
     @Override

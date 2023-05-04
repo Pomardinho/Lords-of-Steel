@@ -6,8 +6,8 @@
 package lordsofsteel;
 
 public class Maia extends Personatge {
-    public Maia(int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
-        super(FOR, CON, VEL, INT, SOR, arma);
+    public Maia(String nom, int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
+        super(nom, FOR, CON, VEL, INT, SOR, arma);
     }
     
     @Override
