@@ -26,6 +26,7 @@ public abstract class Personatge {
     protected int PE; // Probabilitat d'esquivar
     
     public Personatge(String nom, int FOR, int CON, int VEL, int INT, int SOR, Arma arma) {
+        this.nom = nom;
         this.FOR = FOR;
         this.CON = CON;
         this.VEL = VEL;
@@ -40,6 +41,10 @@ public abstract class Personatge {
         PD = (FOR + arma.WPOW) / 4;
         PA = INT + SOR + arma.WVEL;
         PE = VEL + SOR + INT;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
     
     public void setPS(int PS) {
@@ -56,6 +61,10 @@ public abstract class Personatge {
     
     public void setPE(int PE) {
         this.PE = PE;
+    }
+    
+    public String getNom() {
+        return nom;
     }
     
     public int getPS() {
