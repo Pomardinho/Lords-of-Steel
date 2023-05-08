@@ -29,11 +29,28 @@ public class LordsOfSteel {
         System.out.println("3.- Editar personatge");
         System.out.println("4.- Iniciar combat");
         System.out.println("5.- Sortir");
-        System.out.print("Tria opció [1-5]: ");
         
-        String entrada = sc.nextLine();
-        // Comprovar entrada
-        int opcio = Integer.parseInt(entrada);
+        int opcio = 0;
+        boolean entradaCorrecta = false;
+        do {
+            System.out.print("Tria opció [1-5]: ");
+            String entrada = sc.nextLine();
+            if (entrada.length() == 0) {
+                System.out.println("Introdueix com a mínim un caràcter");
+            } else {
+                try {
+                    opcio = Integer.parseInt(entrada);
+                    if (opcio >= 1  &&  opcio <= 5) {
+                        entradaCorrecta = true;
+                        break;
+                    }
+                    
+                    System.out.println("Introdueix una opció vàlida [1-5]");
+                } catch(NumberFormatException e) {
+                    System.out.println("Introdueix una opció vàlida [1-5]");
+                }
+            }
+        } while(!entradaCorrecta);
         System.out.println("");
         
         switch (opcio) {
@@ -75,10 +92,7 @@ public class LordsOfSteel {
 
             System.out.print("Tria un personatge (" + i + "): ");
             int opcio = sc.nextInt();
-
-            // String entrada = sc.nextLine();
             // Comprovar entrada
-            // int opcio = Integer.parseInt(entrada);
 
             personatgesActius[opcio - 1] = true;
             lluitadors[i - 1] = personatges.get(opcio - 1);
@@ -101,27 +115,31 @@ public class LordsOfSteel {
         Dau dau2 = new Dau();
         Dau dau3 = new Dau();
         
-        int tiradaAtacant = dau1.llencar() + dau2.llencar() + dau3.llencar();
-        System.out.println("Tirada: " + tiradaAtacant);
-        
-        if (tiradaAtacant <= atacant.getPA()) {
-            System.out.println(atacant + " ataca...");
-            int tiradaDefensor = dau1.llencar() + dau2.llencar() + dau3.llencar();
-            System.out.println("Tirada: " + tiradaDefensor);
-            
-            if (tiradaDefensor > defensor.getPE()) {
-                System.out.println("I encerta! A " + defensor + " li queden " + (defensor.getPS() - atacant.getPD()) 
-                                    + "/" + defensor.getPS() + " punts de vida");
-                defensor.setPS(defensor.getPS() - atacant.getPD());
+        do {
+            int tiradaAtacant = dau1.llencar() + dau2.llencar() + dau3.llencar();
+            System.out.println("Tirada atacant: " + tiradaAtacant);
+
+            if (tiradaAtacant <= atacant.getPA()) {
+                System.out.println(atacant.getNom() + " ataca...");
+                int tiradaDefensor = dau1.llencar() + dau2.llencar() + dau3.llencar();
+                System.out.println("Tirada defensor: " + tiradaDefensor);
+
+                if (tiradaDefensor > defensor.getPE()) {
+                    System.out.println("I encerta! A " + defensor.getNom() + " li queden " + (defensor.getPS() - atacant.getPD()) 
+                                        + "/" + defensor.getPS() + " punts de vida");
+                    defensor.setPS(defensor.getPS() - atacant.getPD());
+                } else {
+                    System.out.println("Però " + defensor.getNom() + " l'ha esquivat!");
+                }
             } else {
-                System.out.println("Però " + defensor + " l'ha esquivat!");
+                System.out.println(atacant.getNom() + " ha fallat l'atac!");
             }
-        }
-        
-        // Final ronda
-        Personatge aux = atacant;
-        atacant = defensor;
-        defensor = aux;
+
+            // Final ronda
+            Personatge aux = atacant;
+            atacant = defensor;
+            defensor = aux;
+        } while (atacant.getPS() <= 0 && defensor.getPS() <= 0);
         
         // Combatre fins que només quedi un personatge amb PS
     }
