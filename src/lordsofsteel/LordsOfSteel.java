@@ -29,12 +29,12 @@ public class LordsOfSteel {
         System.out.println("3.- Editar personatge");
         System.out.println("4.- Iniciar combat");
         System.out.println("5.- Sortir");
-        System.out.println("");
         System.out.print("Tria opció [1-5]: ");
         
         String entrada = sc.nextLine();
         // Comprovar entrada
         int opcio = Integer.parseInt(entrada);
+        System.out.println("");
         
         switch (opcio) {
             case 1:
@@ -73,7 +73,7 @@ public class LordsOfSteel {
                 }
             }
 
-            System.out.print("Tria un personatge " + i + ": ");
+            System.out.print("Tria un personatge (" + i + "): ");
             int opcio = sc.nextInt();
 
             // String entrada = sc.nextLine();
@@ -83,26 +83,38 @@ public class LordsOfSteel {
             personatgesActius[opcio - 1] = true;
             lluitadors[i - 1] = personatges.get(opcio - 1);
             System.out.println("Personatge triat: " + personatges.get(opcio - 1).getNom());
+            System.out.println("");
         }
         
         // Inici combat
-        // Randomitzar qui ataca primer
-        Personatge atacant = lluitadors[0];
-        Personatge defensor = lluitadors[1];
+        int random = (int)(Math.random());
+        Personatge atacant, defensor;
+        if (random == 0) {
+            atacant = lluitadors[0];
+            defensor = lluitadors[1];
+        } else {
+            atacant = lluitadors[1];
+            defensor = lluitadors[0];
+        }
         
         Dau dau1 = new Dau();
         Dau dau2 = new Dau();
         Dau dau3 = new Dau();
         
         int tiradaAtacant = dau1.llencar() + dau2.llencar() + dau3.llencar();
-        // System.out.println("Tirada: " + tirada);
+        System.out.println("Tirada: " + tiradaAtacant);
         
         if (tiradaAtacant <= atacant.getPA()) {
-            // Atacant ATACA
-            
+            System.out.println(atacant + " ataca...");
             int tiradaDefensor = dau1.llencar() + dau2.llencar() + dau3.llencar();
+            System.out.println("Tirada: " + tiradaDefensor);
+            
             if (tiradaDefensor > defensor.getPE()) {
+                System.out.println("I encerta! A " + defensor + " li queden " + (defensor.getPS() - atacant.getPD()) 
+                                    + "/" + defensor.getPS() + " punts de vida");
                 defensor.setPS(defensor.getPS() - atacant.getPD());
+            } else {
+                System.out.println("Però " + defensor + " l'ha esquivat!");
             }
         }
         
@@ -110,5 +122,7 @@ public class LordsOfSteel {
         Personatge aux = atacant;
         atacant = defensor;
         defensor = aux;
+        
+        // Combatre fins que només quedi un personatge amb PS
     }
 }
