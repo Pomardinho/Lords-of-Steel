@@ -42,9 +42,41 @@ public abstract class Personatge {
         PA = INT + SOR + arma.WVEL;
         PE = VEL + SOR + INT;
     }
+    
+    public void setSOR(int SOR) {
+        this.SOR = SOR;
+    }
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    
+    public void setArma(Arma arma) {
+        this.arma = arma;
+    }
+     
+    public void setPex(int pex) {
+        this.pex = pex;
+    }
+     
+    public void setNivell(int nivell) {
+        this.nivell = nivell;
+    }
+     
+    public void setFOR(int FOR) {
+        this.FOR = FOR;
+    }
+     
+    public void setCON(int CON) {
+        this.CON = CON;
+    }
+    
+    public void setVEL(int VEL) {
+        this.VEL = VEL;
+    }
+    
+    public void setINT(int INT) {
+        this.INT = INT;
     }
     
     public void setPS(int PS) {
@@ -65,6 +97,38 @@ public abstract class Personatge {
     
     public String getNom() {
         return nom;
+    }
+    
+    public Arma getArma() {
+        return arma;
+    }
+    
+    public int getPex() {
+        return pex;
+    }
+    
+    public int getNivell() {
+        return nivell;
+    }
+
+    public int getFOR() {
+        return FOR;
+    }
+
+    public int getCON() {
+        return CON;
+    }
+
+    public int getVEL() {
+        return VEL;
+    }
+
+    public int getINT() {
+        return INT;
+    }
+    
+     public int getSOR() {
+        return SOR;
     }
     
     public int getPS() {
