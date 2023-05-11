@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-// Prova commit github
+// Prova commit github 2
 package lordsofsteel;
 
 public abstract class Personatge {
