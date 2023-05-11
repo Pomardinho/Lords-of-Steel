@@ -21,7 +21,24 @@ public class LordsOfSteel {
         personatges.add(mi1);
         personatges.add(ma1);
         
-        /* Menu principal */
+        int opcio = menuPrincipal();
+        switch (opcio) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                iniciarCombat(personatges);
+                break;
+            case 5:
+                break;
+        }
+    }
+    
+    public static int menuPrincipal() {
+        int opcio = 0;
         System.out.println("");
         System.out.println("** Menú principal **");
         System.out.println("1.- Afegir personatge");
@@ -30,7 +47,6 @@ public class LordsOfSteel {
         System.out.println("4.- Iniciar combat");
         System.out.println("5.- Sortir");
         
-        int opcio = 0;
         boolean entradaCorrecta = false;
         do {
             System.out.print("Tria opció [1-5]: ");
@@ -52,20 +68,7 @@ public class LordsOfSteel {
             }
         } while(!entradaCorrecta);
         System.out.println("");
-        
-        switch (opcio) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                iniciarCombat(personatges);
-                break;
-            case 5:
-                break;
-        }
+        return opcio;
     }
     
     public static void iniciarCombat(ArrayList<Personatge> personatges) {
@@ -139,8 +142,6 @@ public class LordsOfSteel {
             Personatge aux = atacant;
             atacant = defensor;
             defensor = aux;
-        } while (atacant.getPS() <= 0 && defensor.getPS() <= 0);
-        
-        // Combatre fins que només quedi un personatge amb PS
+        } while (atacant.getPS() >= 0 && defensor.getPS() >= 0);
     }
 }
