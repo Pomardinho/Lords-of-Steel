@@ -15,7 +15,7 @@ public class LordsOfSteel {
         Mitja mi1 = new Mitja("Frodo", 9, 7, 7, 15, 16, new Arma("Martell"));
         Maia ma1 = new Maia("Nil", 7, 9, 12, 15, 17, new Arma("Daga"));
         
-        ArrayList<Personatge> personatges = new ArrayList<Personatge>();
+        ArrayList<Personatge> personatges = new ArrayList<>();
         personatges.add(n1);
         personatges.add(h1);
         personatges.add(mi1);
@@ -23,17 +23,11 @@ public class LordsOfSteel {
         
         int opcio = menuPrincipal();
         switch (opcio) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                iniciarCombat(personatges);
-                break;
-            case 5:
-                break;
+            case 1 -> afegirPersonatge();
+            case 2 -> esborrarPersonatge();
+            case 3 -> editarPersonatge();
+            case 4 -> iniciarCombat(personatges);
+            case 5 -> sortir();
         }
     }
     
@@ -69,6 +63,18 @@ public class LordsOfSteel {
         } while(!entradaCorrecta);
         System.out.println("");
         return opcio;
+    }
+    
+    public static void afegirPersonatge() {
+        // Crear personatge
+    }
+    
+    public static void esborrarPersonatge() {
+        // Eliminar personatge
+    }
+    
+    public static void editarPersonatge(/* Passar personatge a editar */) {
+        // Editar personatge
     }
     
     public static void iniciarCombat(ArrayList<Personatge> personatges) {
@@ -143,5 +149,26 @@ public class LordsOfSteel {
             atacant = defensor;
             defensor = aux;
         } while (atacant.getPS() >= 0 && defensor.getPS() >= 0);
+        
+        if (atacant.getPS() <= 0) {
+            System.out.println(defensor + " ha guanyat el combat contra " + atacant + "!");
+            // defensor guanya pex -> pujaNivell(boolean) ? calcular noves estadístiques secundaries
+            System.out.println("Com a recompensa rep " + /* pex + */ " punts d'experiència");
+        } else {
+            // atacant guanya pex -> pujaNivell(boolean) ? calcular noves estadístiques derivades
+        }
+        
+        // Restaurar PS
+    }
+    
+    public static void sortir() {
+        System.out.println("  _                   _              __    _____ _            _ \n" +
+                            " | |                 | |            / _|  / ____| |          | |\n" +
+                            " | |     ___  _ __ __| |___    ___ | |_  | (___ | |_ ___  ___| |\n" +
+                            " | |    / _ \\| '__/ _` / __|  / _ \\|  _|  \\___ \\| __/ _ \\/ _ \\ |\n" +
+                            " | |___| (_) | | | (_| \\__ \\ | (_) | |    ____) | ||  __/  __/ |\n" +
+                            " |______\\___/|_|  \\__,_|___/  \\___/|_|   |_____/ \\__\\___|\\___|_|\n" +
+                            "                                                                \n" +
+                            "Gràcies per jugar");
     }
 }
