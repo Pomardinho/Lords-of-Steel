@@ -23,11 +23,21 @@ public class LordsOfSteel {
         
         int opcio = menuPrincipal();
         switch (opcio) {
-            case 1 -> afegirPersonatge();
-            case 2 -> esborrarPersonatge();
-            case 3 -> editarPersonatge();
-            case 4 -> iniciarCombat(personatges);
-            case 5 -> sortir();
+            case 1:
+                afegirPersonatge();
+            break;
+            case 2:
+                esborrarPersonatge();
+            break;
+            case 3:
+                editarPersonatge();
+            break;
+            case 4:
+                iniciarCombat(personatges);
+            break;
+            case 5:
+                sortir();
+            break;
         }
     }
     
@@ -65,8 +75,97 @@ public class LordsOfSteel {
         return opcio;
     }
     
-    public static void afegirPersonatge() {
-        // Crear personatge
+    public static void afegirPersonatge() { // Només funcionarà una vegada per cada categoria
+        String categoria, nomUsuari, armaUsuari;
+        int FOR, CON, VEL, INT, SOR;
+        Arma arma;
+        
+        System.out.print("Introdueix el nom del teu personatge: ");
+        nomUsuari = sc.nextLine().toLowerCase().trim();
+        String nom = nomUsuari.substring(0, 1).toUpperCase() + nomUsuari.substring(1);
+        
+        for (int i = 0; i < 5; i++) {
+            final int PUNTSTOTALS = 60;
+            int puntsRestants = 60;
+            if (puntsRestants > 0) {
+                switch (i) {
+                    case 0:
+                        boolean FORCorrecta = false;
+                        do {
+                            System.out.print("Introdueix la força de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
+                                              + " per repartir): ");
+                            if (sc.hasNextInt()) {
+                                int temp = sc.nextInt();
+                                if (temp >= puntsRestants) {
+                                    FOR = temp;
+                                    FORCorrecta = true;
+                                } else {
+                                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
+                                }
+                            } else {
+                                sc.nextLine();
+                                System.out.println("Introdueix un valor vàlid");
+                            }
+                        } while (!FORCorrecta);
+                    break;
+                    case 1:
+                        System.out.print("Introdueix la constitució de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
+                                            + " punts per repartir): ");
+                    break;
+                    case 2:
+                        System.out.print("Introdueix la velocitat de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
+                                            + " punts per repartir): ");
+                    break;
+                    case 3:
+                        System.out.print("Introdueix la intel·ligencia de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
+                                            + " punts per repartir): ");
+                    break;
+                    case 4:
+                        System.out.print("Introdueix la sort de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
+                                            + " punts per repartir): ");
+                    break;
+                }
+            } else {
+                
+            }
+        }
+        
+        boolean armaCorrecta = false;
+        String nomArma = "";
+        do {
+            System.out.print("Introdueix l'arma del teu personatge [Daga, Espasa, Martell]: ");
+            armaUsuari = sc.nextLine().toLowerCase().trim();
+            
+            if (armaUsuari.equals("daga") || armaUsuari.equals("espasa") || armaUsuari.equals("martell")) {
+                nomArma = armaUsuari.substring(0, 1).toUpperCase() + armaUsuari.substring(1);
+                armaCorrecta = true;
+            } else {
+                System.out.println("No s'ha pogut trobar l'arma");
+            }
+        } while (!armaCorrecta);
+
+        boolean categoriaCorrecta = false;
+        do {
+            System.out.print("Escull la categoria del teu personatge [Nan, Humà, Mitjà, maia]: ");
+            categoria = sc.nextLine().toLowerCase().trim();
+            switch (categoria) {
+                case "nan":
+                    Nan nan = new Nan("Nom", 1, 1, 1, 1, 1, new Arma(nomArma));
+                    categoriaCorrecta = true;
+                    break;
+                case "humà":
+                    categoriaCorrecta = true;
+                    break;
+                case "mitjà":
+                    categoriaCorrecta = true;
+                    break;
+                case "maia":
+                    categoriaCorrecta = true;
+                    break;
+                default:
+                    System.out.println("No s'ha pogut trobar la categoria");
+            }
+        } while (!categoriaCorrecta);
     }
     
     public static void esborrarPersonatge() {
@@ -162,13 +261,14 @@ public class LordsOfSteel {
     }
     
     public static void sortir() {
-        System.out.println("  _                   _              __    _____ _            _ \n" +
-                            " | |                 | |            / _|  / ____| |          | |\n" +
-                            " | |     ___  _ __ __| |___    ___ | |_  | (___ | |_ ___  ___| |\n" +
-                            " | |    / _ \\| '__/ _` / __|  / _ \\|  _|  \\___ \\| __/ _ \\/ _ \\ |\n" +
-                            " | |___| (_) | | | (_| \\__ \\ | (_) | |    ____) | ||  __/  __/ |\n" +
-                            " |______\\___/|_|  \\__,_|___/  \\___/|_|   |_____/ \\__\\___|\\___|_|\n" +
-                            "                                                                \n" +
-                            "Gràcies per jugar");
+        System.out.println("""
+                             _                   _              __    _____ _            _
+                            | |                 | |            / _|  / ____| |          | |
+                            | |     ___  _ __ __| |___    ___ | |_  | (___ | |_ ___  ___| |
+                            | |    / _ \\| '__/ _` / __|  / _ \\|  _|  \\___ \\| __/ _ \\/ _ \\ |
+                            | |___| (_) | | | (_| \\__ \\ | (_) | |    ____) | ||  __/  __/ |
+                            |______\\___/|_|  \\__,_|___/  \\___/|_|   |_____/ \\__\\___|\\___|_|
+                           
+                           Gr\u00e0cies per jugar""");
     }
 }
