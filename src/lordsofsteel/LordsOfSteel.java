@@ -89,104 +89,24 @@ public class LordsOfSteel {
             if (puntsRestants > 0) {
                 switch (i) {
                     case 0:
-                        boolean FORCorrecta = false;
-                        do {
-                            System.out.print("Introdueix la força de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
-                                              + " per repartir): ");
-                            if (sc.hasNextInt()) {
-                                int temp = sc.nextInt();
-                                if (temp <= puntsRestants) {
-                                    FOR = temp;
-                                    puntsRestants -= FOR;
-                                    FORCorrecta = true;
-                                } else {
-                                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
-                                }
-                            } else {
-                                sc.nextLine();
-                                System.out.println("Introdueix un valor vàlid");
-                            }
-                        } while (!FORCorrecta);
+                        FOR = assignarPunts("força", nom, puntsRestants, PUNTSTOTALS);
+                        puntsRestants -= FOR;
                     break;
                     case 1:
-                        boolean CONCorrecta = false;
-                        do {
-                            System.out.print("Introdueix la constitució de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
-                                              + " per repartir): ");
-                            if (sc.hasNextInt()) {
-                                int temp = sc.nextInt();
-                                if (temp <= puntsRestants) {
-                                    CON = temp;
-                                    puntsRestants -= CON;
-                                    CONCorrecta = true;
-                                } else {
-                                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
-                                }
-                            } else {
-                                sc.nextLine();
-                                System.out.println("Introdueix un valor vàlid");
-                            }
-                        } while (!CONCorrecta);
+                        CON = assignarPunts("constitució", nom, puntsRestants, PUNTSTOTALS);
+                        puntsRestants -= CON;
                     break;
                     case 2:
-                        boolean VELCorrecta = false;
-                        do {
-                            System.out.print("Introdueix la velocitat de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
-                                              + " per repartir): ");
-                            if (sc.hasNextInt()) {
-                                int temp = sc.nextInt();
-                                if (temp <= puntsRestants) {
-                                    VEL = temp;
-                                    puntsRestants -= VEL;
-                                    VELCorrecta = true;
-                                } else {
-                                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
-                                }
-                            } else {
-                                sc.nextLine();
-                                System.out.println("Introdueix un valor vàlid");
-                            }
-                        } while (!VELCorrecta);
+                        VEL = assignarPunts("velocitat", nom, puntsRestants, PUNTSTOTALS);
+                        puntsRestants -= VEL;
                     break;
                     case 3:
-                        boolean INTCorrecta = false;
-                        do {
-                            System.out.print("Introdueix la intel·ligència de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
-                                              + " per repartir): ");
-                            if (sc.hasNextInt()) {
-                                int temp = sc.nextInt();
-                                if (temp <= puntsRestants) {
-                                    INT = temp;
-                                    puntsRestants -= INT;
-                                    INTCorrecta = true;
-                                } else {
-                                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
-                                }
-                            } else {
-                                sc.nextLine();
-                                System.out.println("Introdueix un valor vàlid");
-                            }
-                        } while (!INTCorrecta);
+                        INT = assignarPunts("intel·ligència", nom, puntsRestants, PUNTSTOTALS);
+                        puntsRestants -= INT;
                     break;
                     case 4:
-                        boolean SORCorrecta = false;
-                        do {
-                            System.out.print("Introdueix la sort de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
-                                              + " per repartir): ");
-                            if (sc.hasNextInt()) {
-                                int temp = sc.nextInt();
-                                if (temp <= puntsRestants) {
-                                    SOR = temp;
-                                    puntsRestants -= SOR;
-                                    SORCorrecta = true;
-                                } else {
-                                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
-                                }
-                            } else {
-                                sc.nextLine();
-                                System.out.println("Introdueix un valor vàlid");
-                            }
-                        } while (!SORCorrecta);
+                        SOR = assignarPunts("sort", nom, puntsRestants, PUNTSTOTALS);
+                        puntsRestants -= SOR;
                     break;
                 }
             } else {
@@ -250,6 +170,29 @@ public class LordsOfSteel {
                     System.out.println("No s'ha pogut trobar la categoria");
             }
         } while (!categoriaCorrecta);
+    }
+    
+    public static int assignarPunts(String nomEstadistica, String nom, int puntsRestants, final int PUNTSTOTALS) {
+        int estadistica = 0;
+        boolean estadisticaCorrecta = false;
+        do {
+            System.out.print("Introdueix la " + nomEstadistica + " de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
+                              + " per repartir): ");
+            if (sc.hasNextInt()) {
+                int temp = sc.nextInt();
+                if (temp <= puntsRestants) {
+                    estadistica = temp;
+                    estadisticaCorrecta = true;
+                } else {
+                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
+                }
+            } else {
+                sc.nextLine();
+                System.out.println("Introdueix un valor vàlid");
+            }
+        } while (!estadisticaCorrecta);
+        
+        return estadistica;
     }
     
     public static void esborrarPersonatge(ArrayList<Personatge> personatges) {
