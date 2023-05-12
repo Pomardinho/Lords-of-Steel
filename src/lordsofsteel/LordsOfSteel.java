@@ -315,8 +315,14 @@ public class LordsOfSteel {
             if (sc.hasNextInt()) {
                 int temp = sc.nextInt();
                 if (temp <= puntsRestants) {
-                    estadistica = temp;
-                    estadisticaCorrecta = true;
+                    if (temp < 3) {
+                        System.out.println("Com a mínim has d'assignar 3 punts per estadística");
+                    } else if (temp > 18) {
+                        System.out.println("Com a máxim pots assignar 18 punts per estadística");
+                    } else {
+                        estadistica = temp;
+                        estadisticaCorrecta = true;
+                    }
                 } else {
                     System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
                 }
