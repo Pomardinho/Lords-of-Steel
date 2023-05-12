@@ -172,70 +172,10 @@ public class LordsOfSteel {
         } while (!categoriaCorrecta);
     }
     
-    public static int assignarPunts(String nomEstadistica, String nom, int puntsRestants, final int PUNTSTOTALS) {
-        int estadistica = 0;
-        boolean estadisticaCorrecta = false;
-        do {
-            System.out.print("Introdueix la " + nomEstadistica + " de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
-                              + " per repartir): ");
-            if (sc.hasNextInt()) {
-                int temp = sc.nextInt();
-                if (temp <= puntsRestants) {
-                    estadistica = temp;
-                    estadisticaCorrecta = true;
-                } else {
-                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
-                }
-            } else {
-                sc.nextLine();
-                System.out.println("Introdueix un valor vàlid");
-            }
-        } while (!estadisticaCorrecta);
-        
-        return estadistica;
-    }
-    
     public static void esborrarPersonatge(ArrayList<Personatge> personatges) {
         Personatge personatge = triaPersonatge(personatges, "esborrar");
         System.out.println("Esborrat " + personatge.getNom());
         personatges.remove(personatge);
-    }
-    
-    public static Personatge triaPersonatge(ArrayList<Personatge> personatges, String acció) {
-        for (int i = 0; i < personatges.size(); i++) {
-            String tipus = "";
-            if (personatges.get(i) instanceof Nan) {
-                tipus = "Nan";
-            } else if (personatges.get(i) instanceof Huma) {
-                tipus = "Humà";
-            } else if (personatges.get(i) instanceof Mitja) {
-                tipus = "Mitjà";
-            } else if (personatges.get(i) instanceof Maia) {
-                tipus = "Maia";
-            }
-            
-            System.out.println((i + 1) + ".- " + personatges.get(i).getNom() + "(" + tipus + ")");
-        }
-        
-        boolean opcioCorrecta = false;
-        int opcio = 0;
-        do {
-            System.out.print("Tria el personatge que vols " + acció + ": ");
-            if (sc.hasNextInt()) {
-                int temp = sc.nextInt();
-                if (temp >= 0 && temp <= personatges.size()) {
-                    opcio = temp;
-                    opcioCorrecta = true;
-                } else {
-                    System.out.println("Només hi ha " + (personatges.size()) + " personatges disponibles");
-                }
-            } else {
-                sc.nextLine();
-                System.out.println("Introdueix un valor vàlid");
-            }
-        } while (!opcioCorrecta);
-        
-        return personatges.get(opcio - 1);
     }
     
     public static void editarPersonatge(ArrayList<Personatge> personatges) {
@@ -350,5 +290,65 @@ public class LordsOfSteel {
                             |______\\___/|_|  \\__,_|___/  \\___/|_|   |_____/ \\__\\___|\\___|_|
                            
                            Gràcies per jugar""");
+    }
+    
+    public static int assignarPunts(String nomEstadistica, String nom, int puntsRestants, final int PUNTSTOTALS) {
+        int estadistica = 0;
+        boolean estadisticaCorrecta = false;
+        do {
+            System.out.print("Introdueix la " + nomEstadistica + " de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
+                              + " per repartir): ");
+            if (sc.hasNextInt()) {
+                int temp = sc.nextInt();
+                if (temp <= puntsRestants) {
+                    estadistica = temp;
+                    estadisticaCorrecta = true;
+                } else {
+                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
+                }
+            } else {
+                sc.nextLine();
+                System.out.println("Introdueix un valor vàlid");
+            }
+        } while (!estadisticaCorrecta);
+        
+        return estadistica;
+    }
+    
+    public static Personatge triaPersonatge(ArrayList<Personatge> personatges, String acció) {
+        for (int i = 0; i < personatges.size(); i++) {
+            String tipus = "";
+            if (personatges.get(i) instanceof Nan) {
+                tipus = "Nan";
+            } else if (personatges.get(i) instanceof Huma) {
+                tipus = "Humà";
+            } else if (personatges.get(i) instanceof Mitja) {
+                tipus = "Mitjà";
+            } else if (personatges.get(i) instanceof Maia) {
+                tipus = "Maia";
+            }
+            
+            System.out.println((i + 1) + ".- " + personatges.get(i).getNom() + "(" + tipus + ")");
+        }
+        
+        boolean opcioCorrecta = false;
+        int opcio = 0;
+        do {
+            System.out.print("Tria el personatge que vols " + acció + ": ");
+            if (sc.hasNextInt()) {
+                int temp = sc.nextInt();
+                if (temp >= 0 && temp <= personatges.size()) {
+                    opcio = temp;
+                    opcioCorrecta = true;
+                } else {
+                    System.out.println("Només hi ha " + (personatges.size()) + " personatges disponibles");
+                }
+            } else {
+                sc.nextLine();
+                System.out.println("Introdueix un valor vàlid");
+            }
+        } while (!opcioCorrecta);
+        
+        return personatges.get(opcio - 1);
     }
 }
