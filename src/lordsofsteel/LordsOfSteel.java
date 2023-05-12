@@ -27,10 +27,10 @@ public class LordsOfSteel {
                 afegirPersonatge(personatges);
             break;
             case 2:
-                esborrarPersonatge();
+                esborrarPersonatge(personatges);
             break;
             case 3:
-                editarPersonatge();
+                editarPersonatge(personatges);
             break;
             case 4:
                 iniciarCombat(personatges);
@@ -252,11 +252,50 @@ public class LordsOfSteel {
         } while (!categoriaCorrecta);
     }
     
-    public static void esborrarPersonatge() {
-        // Eliminar personatge
+    public static void esborrarPersonatge(ArrayList<Personatge> personatges) {
+        Personatge personatge = triaPersonatge(personatges, "esborrar");
+        System.out.println("Esborrat " + personatge.getNom());
+        personatges.remove(personatge);
     }
     
-    public static void editarPersonatge(/* Passar personatge a editar */) {
+    public static Personatge triaPersonatge(ArrayList<Personatge> personatges, String acció) {
+        for (int i = 0; i < personatges.size(); i++) {
+            String tipus = "";
+            if (personatges.get(i) instanceof Nan) {
+                tipus = "Nan";
+            } else if (personatges.get(i) instanceof Huma) {
+                tipus = "Humà";
+            } else if (personatges.get(i) instanceof Mitja) {
+                tipus = "Mitjà";
+            } else if (personatges.get(i) instanceof Maia) {
+                tipus = "Maia";
+            }
+            
+            System.out.println((i + 1) + ".- " + personatges.get(i).getNom() + "(" + tipus + ")");
+        }
+        
+        boolean opcioCorrecta = false;
+        int opcio = 0;
+        do {
+            System.out.print("Tria el personatge que vols " + acció + ": ");
+            if (sc.hasNextInt()) {
+                int temp= sc.nextInt();
+                if (temp >= 0 && temp <= personatges.size()) {
+                    opcio = temp;
+                    opcioCorrecta = true;
+                } else {
+                    System.out.println("Només hi ha " + (personatges.size()) + " personatges disponibles");
+                }
+            } else {
+                sc.nextLine();
+                System.out.println("Introdueix un valor vàlid");
+            }
+        } while (!opcioCorrecta);
+        
+        return personatges.get(opcio - 1);
+    }
+    
+    public static void editarPersonatge(ArrayList<Personatge> personatges) {
         // Editar personatge
     }
     
