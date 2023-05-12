@@ -238,13 +238,17 @@ public class LordsOfSteel {
         }
         
         int random = (int)(Math.random());
-        Personatge atacant, defensor;
+        Personatge atacant, defensor, atacantInicial, defensorInicial;
         if (random == 0) {
             atacant = lluitadors[0];
             defensor = lluitadors[1];
+            atacantInicial = lluitadors[0];
+            defensorInicial = lluitadors[1];
         } else {
             atacant = lluitadors[1];
             defensor = lluitadors[0];
+            atacantInicial = lluitadors[1];
+            defensorInicial = lluitadors[0];
         }
         
         Dau dau1 = new Dau();
@@ -285,9 +289,9 @@ public class LordsOfSteel {
             defensor = aux;
         } while (atacant.getPS() > 0 && defensor.getPS() > 0);
         
-        defensor.setPS(defensorPSInicials);
-        atacant.setPS(atacantPSInicials);
-        System.out.println("\n" + defensor.getNom()+ " ha guanyat el combat contra " + atacant.getNom() + "!");
+        defensorInicial.setPS(defensorPSInicials);
+        atacantInicial.setPS(atacantPSInicials);
+        System.out.println("\n" + defensor.getNom() + " ha guanyat el combat contra " + atacant.getNom() + "!");
         defensor.setPex(defensor.getPex() + atacantPSInicials);
         System.out.println("Com a recompensa rep " + atacantPSInicials + " punts d'experiència (PEX totals: " + defensor.getPex() + ")");
         pujaNivell(defensor);
@@ -394,5 +398,11 @@ public class LordsOfSteel {
         personatge.setVEL(personatge.getVEL() + 1);
         personatge.setINT(personatge.getINT() + 1);
         personatge.setSOR(personatge.getSOR() + 1);
+        int PSA = personatge.getPS(), PDA = personatge.getPD(), PAA = personatge.getPA(), PEA = personatge.getPE(); // A = Anterior;
+        personatge.calculaEstadistiquesDerivades();
+        System.out.println("PS: " + PSA + " -> " + personatge.getPS()
+                            + ", PD: " + PDA + " -> " + personatge.getPD()
+                            + ", PA: " + PAA + " -> " + personatge.getPA()
+                            + ", PE: " + PEA + " -> " + personatge.getPE());
     }
 }
