@@ -180,10 +180,11 @@ public class LordsOfSteel {
         Personatge personatge = triaPersonatge(personatges, "esborrar");
         System.out.println("Esborrat " + personatge.getNom());
         personatges.remove(personatge);
+        sc.nextLine();
     }
     
     public static void editarPersonatge(ArrayList<Personatge> personatges) {
-        // Editar personatge
+        
     }
     
     public static void iniciarCombat(ArrayList<Personatge> personatges) {
@@ -236,7 +237,6 @@ public class LordsOfSteel {
             System.out.println("");
         }
         
-        // Inici combat
         int random = (int)(Math.random());
         Personatge atacant, defensor;
         if (random == 0) {
@@ -251,7 +251,11 @@ public class LordsOfSteel {
         Dau dau2 = new Dau();
         Dau dau3 = new Dau();
         
+        int nRonda = 1;
+        int defensorPSInicials = defensor.getPS();
+        int atacantPSInicials = atacant.getPS();
         do {
+            System.out.println("\nRonda " + nRonda);
             int tiradaAtacant = dau1.llencar() + dau2.llencar() + dau3.llencar();
             System.out.println("Tirada atacant: " + tiradaAtacant);
 
@@ -274,19 +278,20 @@ public class LordsOfSteel {
             } else {
                 System.out.println(atacant.getNom() + " ha fallat l'atac!");
             }
-
-            // Final ronda
+            
+            nRonda++;
             Personatge aux = atacant;
             atacant = defensor;
             defensor = aux;
         } while (atacant.getPS() > 0 && defensor.getPS() > 0);
         
+        defensor.setPS(defensorPSInicials);
+        atacant.setPS(atacantPSInicials);
         System.out.println("\n" + defensor.getNom()+ " ha guanyat el combat contra " + atacant.getNom() + "!");
-        // defensor guanya pex -> pujaNivell(boolean) ? calcular noves estadístiques secundaries
-        System.out.println("Com a recompensa rep " + /* pex + */ " punts d'experiència");
-        
+        defensor.setPex(defensor.getPex() + atacantPSInicials);
+        System.out.println("Com a recompensa rep " + atacantPSInicials + " punts d'experiència (PEX totals: " + defensor.getPex() + ")");
+        pujaNivell(defensor);
         sc.nextLine();
-        // Restaurar PS
     }
     
     public static void sortir() {
@@ -359,5 +364,29 @@ public class LordsOfSteel {
         } while (!opcioCorrecta);
         
         return personatges.get(opcio - 1);
+    }
+    
+    public static void pujaNivell(Personatge personatge) {
+        if (personatge.getPex() >= 100 && personatge.getNivell() == 0) {
+            nouNivell(personatge, '1');
+        } else if (personatge.getPex() >= 200 && personatge.getNivell() == 1) {
+            nouNivell(personatge, '2');
+        } else if (personatge.getPex() >= 500 && personatge.getNivell() == 2) {
+            nouNivell(personatge, '3');
+        } else if (personatge.getPex() >= 1000 && personatge.getNivell() == 3) {
+            nouNivell(personatge, '4');
+        } else if (personatge.getPex() >= 2000 && personatge.getNivell() == 4) {
+            nouNivell(personatge, '5');
+        }
+    }
+    
+    public static void nouNivell(Personatge personatge, char nivell) {
+        System.out.println("Enhorabona, " + personatge.getNom() + " ha pujat a nivell " + nivell + "!");
+        personatge.setNivell(personatge.getNivell() + 1);
+        personatge.setFOR(personatge.getFOR() + 1);
+        personatge.setCON(personatge.getCON() + 1);
+        personatge.setVEL(personatge.getVEL() + 1);
+        personatge.setINT(personatge.getINT() + 1);
+        personatge.setSOR(personatge.getSOR() + 1);
     }
 }
