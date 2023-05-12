@@ -21,24 +21,28 @@ public class LordsOfSteel {
         personatges.add(mi1);
         personatges.add(ma1);
         
-        int opcio = menuPrincipal();
-        switch (opcio) {
-            case 1:
-                afegirPersonatge(personatges);
-            break;
-            case 2:
-                esborrarPersonatge(personatges);
-            break;
-            case 3:
-                editarPersonatge(personatges);
-            break;
-            case 4:
-                iniciarCombat(personatges);
-            break;
-            case 5:
-                sortir();
-            break;
-        }
+        boolean sortirPrograma = false;
+        do {
+            int opcio = menuPrincipal();
+            switch (opcio) {
+                case 1:
+                    afegirPersonatge(personatges);
+                break;
+                case 2:
+                    esborrarPersonatge(personatges);
+                break;
+                case 3:
+                    editarPersonatge(personatges);
+                break;
+                case 4:
+                    iniciarCombat(personatges);
+                break;
+                case 5:
+                    sortir();
+                    sortirPrograma = true;
+                break;
+            }
+        } while (!sortirPrograma);
     }
     
     public static int menuPrincipal() {
@@ -211,8 +215,12 @@ public class LordsOfSteel {
                 if (sc.hasNextInt()) {
                     int temp = sc.nextInt();
                     if (temp >= 0 && temp <= personatges.size()) {
-                        opcio = temp;
-                        opcioCorrecta = true;
+                        if (personatgesActius[temp - 1] == true) {
+                            System.out.println(lluitadors[0].getNom() + " no pot lluitar contra si mateix");
+                        } else {
+                            opcio = temp;
+                            opcioCorrecta = true;
+                        }
                     } else {
                         System.out.println("Només hi ha " + (personatges.size() - (i - 1)) + " personatges disponibles");
                     }
@@ -277,6 +285,7 @@ public class LordsOfSteel {
         // defensor guanya pex -> pujaNivell(boolean) ? calcular noves estadístiques secundaries
         System.out.println("Com a recompensa rep " + /* pex + */ " punts d'experiència");
         
+        sc.nextLine();
         // Restaurar PS
     }
     
