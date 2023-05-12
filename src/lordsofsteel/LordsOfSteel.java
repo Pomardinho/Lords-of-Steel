@@ -222,7 +222,7 @@ public class LordsOfSteel {
         do {
             System.out.print("Tria el personatge que vols " + acció + ": ");
             if (sc.hasNextInt()) {
-                int temp= sc.nextInt();
+                int temp = sc.nextInt();
                 if (temp >= 0 && temp <= personatges.size()) {
                     opcio = temp;
                     opcioCorrecta = true;
@@ -264,9 +264,23 @@ public class LordsOfSteel {
                 }
             }
 
-            System.out.print("Tria un personatge (" + i + "): ");
-            int opcio = sc.nextInt();
-            // Comprovar entrada
+            boolean opcioCorrecta = false;
+            int opcio = 0;
+            do {
+                System.out.print("Tria un personatge (" + i + "): ");
+                if (sc.hasNextInt()) {
+                    int temp = sc.nextInt();
+                    if (temp >= 0 && temp <= personatges.size()) {
+                        opcio = temp;
+                        opcioCorrecta = true;
+                    } else {
+                        System.out.println("Només hi ha " + (personatges.size() - (i - 1)) + " personatges disponibles");
+                    }
+                } else {
+                    sc.nextLine();
+                    System.out.println("Introdueix un valor vàlid");
+                }
+            } while (!opcioCorrecta);
 
             personatgesActius[opcio - 1] = true;
             lluitadors[i - 1] = personatges.get(opcio - 1);
@@ -299,8 +313,12 @@ public class LordsOfSteel {
                 System.out.println("Tirada defensor: " + tiradaDefensor);
 
                 if (tiradaDefensor > defensor.getPE()) {
-                    System.out.println("I encerta! A " + defensor.getNom() + " li queden " + (defensor.getPS() - atacant.getPD()) 
-                                        + "/" + defensor.getPS() + " punts de vida");
+                    if (defensor.getPS() - atacant.getPD() < 0) {
+                        System.out.println("I encerta! A " + defensor.getNom() + " ja no li queden més punts de vida");
+                    } else {
+                        System.out.println("I encerta! A " + defensor.getNom() + " li queden " + (defensor.getPS() - atacant.getPD())
+                                            + " punts de vida");
+                    }
                     defensor.setPS(defensor.getPS() - atacant.getPD());
                 } else {
                     System.out.println("Però " + defensor.getNom() + " l'ha esquivat!");
@@ -313,15 +331,11 @@ public class LordsOfSteel {
             Personatge aux = atacant;
             atacant = defensor;
             defensor = aux;
-        } while (atacant.getPS() >= 0 && defensor.getPS() >= 0);
+        } while (atacant.getPS() > 0 && defensor.getPS() > 0);
         
-        if (atacant.getPS() <= 0) {
-            System.out.println(defensor + " ha guanyat el combat contra " + atacant + "!");
-            // defensor guanya pex -> pujaNivell(boolean) ? calcular noves estadístiques secundaries
-            System.out.println("Com a recompensa rep " + /* pex + */ " punts d'experiència");
-        } else {
-            // atacant guanya pex -> pujaNivell(boolean) ? calcular noves estadístiques derivades
-        }
+        System.out.println("\n" + defensor.getNom()+ " ha guanyat el combat contra " + atacant.getNom() + "!");
+        // defensor guanya pex -> pujaNivell(boolean) ? calcular noves estadístiques secundaries
+        System.out.println("Com a recompensa rep " + /* pex + */ " punts d'experiència");
         
         // Restaurar PS
     }
@@ -335,6 +349,6 @@ public class LordsOfSteel {
                             | |___| (_) | | | (_| \\__ \\ | (_) | |    ____) | ||  __/  __/ |
                             |______\\___/|_|  \\__,_|___/  \\___/|_|   |_____/ \\__\\___|\\___|_|
                            
-                           Gr\u00e0cies per jugar""");
+                           Gràcies per jugar""");
     }
 }
