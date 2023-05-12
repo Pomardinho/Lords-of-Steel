@@ -184,7 +184,56 @@ public class LordsOfSteel {
     }
     
     public static void editarPersonatge(ArrayList<Personatge> personatges) {
+        Personatge personatge = triaPersonatge(personatges, "editar");
+        int puntsTotals;
+        if (personatge.getNivell() > 0) {
+            puntsTotals = personatge.getFOR() + personatge.getCON() + personatge.getVEL() + personatge.getINT() + personatge.getSOR();
+            if (puntsTotals < 60) {
+                puntsTotals = 60;
+            }
+        } else {
+            puntsTotals = 60;
+        }
         
+        int puntsRestants = puntsTotals;
+        int FORA = personatge.getFOR(), CONA = personatge.getCON(), VELA = personatge.getVEL(), 
+                    INTA = personatge.getINT(), SORA = personatge.getSOR(); // A = Anterior
+        for (int i = 0; i < 5; i++) {
+            if (puntsRestants > 0) {
+                switch (i) {
+                    case 0:
+                        personatge.setFOR(assignarPunts("força", personatge.getNom(), puntsRestants, puntsTotals));
+                        puntsRestants -= personatge.getFOR();
+                    break;
+                    case 1:
+                        personatge.setCON(assignarPunts("constitució", personatge.getNom(), puntsRestants, puntsTotals));
+                        puntsRestants -= personatge.getCON();
+                    break;
+                    case 2:
+                        personatge.setVEL(assignarPunts("velocitat", personatge.getNom(), puntsRestants, puntsTotals));
+                        puntsRestants -= personatge.getVEL();
+                    break;
+                    case 3:
+                        personatge.setINT(assignarPunts("intel·ligència", personatge.getNom(), puntsRestants, puntsTotals));
+                        puntsRestants -= personatge.getINT();
+                    break;
+                    case 4:
+                        personatge.setSOR(assignarPunts("sort", personatge.getNom(), puntsRestants, puntsTotals));
+                        puntsRestants -= personatge.getSOR();
+                    break;
+                }
+            } else {
+                System.out.println("No queden punts per assignar");
+            }
+        }
+        
+        System.out.println("S'han fet les següents modificacions per a " + personatge.getNom() + "\n"
+                + "Força: " + FORA + " -> " + personatge.getFOR()
+                + ", Constitució: " + CONA + " -> " + personatge.getCON()
+                + ", Velocitat: " + VELA + " -> " + personatge.getVEL()
+                + ", Inteligència: " + INTA + " -> " + personatge.getINT()
+                + ", Sort: " + SORA + " -> " + personatge.getSOR());
+        sc.nextLine();
     }
     
     public static void iniciarCombat(ArrayList<Personatge> personatges) {
@@ -310,11 +359,11 @@ public class LordsOfSteel {
                            Gràcies per jugar""");
     }
     
-    public static int assignarPunts(String nomEstadistica, String nom, int puntsRestants, final int PUNTSTOTALS) {
+    public static int assignarPunts(String nomEstadistica, String nom, int puntsRestants, int puntsTotals) {
         int estadistica = 0;
         boolean estadisticaCorrecta = false;
         do {
-            System.out.print("Introdueix la " + nomEstadistica + " de " + nom + " (queden " + puntsRestants + "/" + PUNTSTOTALS
+            System.out.print("Introdueix la " + nomEstadistica + " de " + nom + " (queden " + puntsRestants + "/" + puntsTotals
                               + " per repartir): ");
             if (sc.hasNextInt()) {
                 int temp = sc.nextInt();
@@ -328,7 +377,7 @@ public class LordsOfSteel {
                         estadisticaCorrecta = true;
                     }
                 } else {
-                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + PUNTSTOTALS);
+                    System.out.println("No es poden assignar els punts, només queden " + puntsRestants + "/" + puntsTotals);
                 }
             } else {
                 sc.nextLine();
@@ -398,7 +447,7 @@ public class LordsOfSteel {
         personatge.setVEL(personatge.getVEL() + 1);
         personatge.setINT(personatge.getINT() + 1);
         personatge.setSOR(personatge.getSOR() + 1);
-        int PSA = personatge.getPS(), PDA = personatge.getPD(), PAA = personatge.getPA(), PEA = personatge.getPE(); // A = Anterior;
+        int PSA = personatge.getPS(), PDA = personatge.getPD(), PAA = personatge.getPA(), PEA = personatge.getPE(); // A = Anterior
         personatge.calculaEstadistiquesDerivades();
         System.out.println("PS: " + PSA + " -> " + personatge.getPS()
                             + ", PD: " + PDA + " -> " + personatge.getPD()
