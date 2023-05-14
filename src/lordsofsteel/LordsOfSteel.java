@@ -38,8 +38,7 @@ public class LordsOfSteel {
                     iniciarCombat(personatges);
                 break;
                 case 5:
-                    sortir();
-                    sortirPrograma = true;
+                    sortirPrograma = sortir();
                 break;
             }
         } while (!sortirPrograma);
@@ -347,8 +346,15 @@ public class LordsOfSteel {
         sc.nextLine();
     }
     
-    public static void sortir() {
-        System.out.println("""
+    public static boolean sortir() {
+        boolean resultat = false;
+        boolean opcioValida = false;
+        do {
+            System.out.print("Estàs segur que vols sortir? [S/N]: ");
+            char SN = sc.nextLine().toUpperCase().trim().charAt(0);
+            switch (SN) {
+                case 'S':
+                    System.out.println("""
                              _                   _              __    _____ _            _
                             | |                 | |            / _|  / ____| |          | |
                             | |     ___  _ __ __| |___    ___ | |_  | (___ | |_ ___  ___| |
@@ -357,6 +363,18 @@ public class LordsOfSteel {
                             |______\\___/|_|  \\__,_|___/  \\___/|_|   |_____/ \\__\\___|\\___|_|
                            
                            Gràcies per jugar""");
+                    resultat = true;
+                    opcioValida = true;
+                case 'N':
+                    opcioValida = true;
+                break;
+                default:
+                    System.out.println("Introdueix una opció vàlida [S/N]");
+                break;
+            }
+        } while (!opcioValida);
+        
+        return resultat;
     }
     
     public static int assignarPunts(String nomEstadistica, String nom, int puntsRestants, int puntsTotals) {
