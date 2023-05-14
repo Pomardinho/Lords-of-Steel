@@ -138,35 +138,71 @@ public class LordsOfSteel {
             categoria = sc.nextLine().toLowerCase().trim();
             switch (categoria) {
                 case "nan":
-                    Nan nan = new Nan(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
-                    personatges.add(nan);
-                    System.out.println("Afegit " + nom + " (Nan) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
-                                        + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
-                                        + SOR + "(Sort)");
+                    if (triaDevocio().equals("ordre")) {
+                        NanOrdre nan = new NanOrdre(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
+                        System.out.println("Afegit " + nom + " (Nan: Ordre) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
+                                            + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
+                                            + SOR + "(Sort)");
+                        personatges.add(nan);
+                    } else {
+                        NanCaos nan = new NanCaos(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
+                        System.out.println("Afegit " + nom + " (Nan: Caos) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
+                                            + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
+                                            + SOR + "(Sort)");
+                        personatges.add(nan);
+                    }
+                    
                     categoriaCorrecta = true;
                     break;
                 case "humà":
-                    Huma huma = new Huma(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
-                    personatges.add(huma);
-                    System.out.println("Afegit " + nom + " (Humà) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
-                                        + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
-                                        + SOR + "(Sort)");
+                    if (triaDevocio().equals("ordre")) {
+                        HumaOrdre huma = new HumaOrdre(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
+                        System.out.println("Afegit " + nom + " (Humà: Ordre) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
+                                            + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
+                                            + SOR + "(Sort)");
+                        personatges.add(huma);
+                    } else {
+                        HumaCaos huma = new HumaCaos(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
+                        System.out.println("Afegit " + nom + " (Humà: Caos) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
+                                            + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
+                                            + SOR + "(Sort)");
+                        personatges.add(huma);
+                    }
+                    
                     categoriaCorrecta = true;
                     break;
                 case "mitjà":
-                    Mitja mitja = new Mitja(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
-                    personatges.add(mitja);
-                    System.out.println("Afegit " + nom + " (Mitjà) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
-                                        + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
-                                        + SOR + "(Sort)");
+                    if (triaDevocio().equals("ordre")) {
+                        MitjaOrdre mitja = new MitjaOrdre(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
+                        System.out.println("Afegit " + nom + " (Mitjà: Ordre) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
+                                            + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
+                                            + SOR + "(Sort)");
+                        personatges.add(mitja);
+                    } else {
+                        MitjaCaos mitja = new MitjaCaos(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
+                        System.out.println("Afegit " + nom + " (Mitjà: Caos) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
+                                            + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
+                                            + SOR + "(Sort)");
+                        personatges.add(mitja);
+                    }
+                    
                     categoriaCorrecta = true;
                     break;
                 case "maia":
-                    Maia maia = new Maia(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
-                    personatges.add(maia);
-                    System.out.println("Afegit " + nom + " (Maia) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
-                                        + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
-                                        + SOR + "(Sort)");
+                    if (triaDevocio().equals("ordre")) {
+                        MaiaOrdre maia = new MaiaOrdre(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
+                        System.out.println("Afegit " + nom + " (Maia: Ordre) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
+                                            + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
+                                            + SOR + "(Sort)");
+                        personatges.add(maia);
+                    } else {
+                        MaiaCaos maia = new MaiaCaos(nom, FOR, CON, VEL, INT, SOR, new Arma(nomArma));
+                        System.out.println("Afegit " + nom + " (Maia: Caos) amb l'arma " + nomArma + " i estadístiques: " + FOR + "(Força), "
+                                            + CON + "(Constitució), " + VEL + "(Velocitat), " + INT + "(Intel·ligència), "
+                                            + SOR + "(Sort)");
+                        personatges.add(maia);
+                    }
+                    
                     categoriaCorrecta = true;
                     break;
                 default:
@@ -303,6 +339,7 @@ public class LordsOfSteel {
         Dau dau2 = new Dau();
         Dau dau3 = new Dau();
         
+        /* Afegir efectes de devoció (instanceof) */
         int nRonda = 1;
         int defensorPSInicials = defensor.getPS();
         int atacantPSInicials = atacant.getPS();
@@ -375,6 +412,27 @@ public class LordsOfSteel {
         } while (!opcioValida);
         
         return resultat;
+    }
+    
+    public static String triaDevocio() {
+        boolean devocioCorrecta = false;
+        String devocio;
+        do {   
+            System.out.print("Tria una devoció [Ordre, Caos]: ");
+            devocio = sc.nextLine().toLowerCase().trim();
+            switch (devocio) {
+                case "ordre":
+                case "caos":
+                    devocioCorrecta = true;
+                break;
+                default:
+                    System.out.println("No s'ha pogut trobar la devoció");
+                break;
+            }
+        } while (!devocioCorrecta);
+        
+        
+        return devocio;
     }
     
     public static int assignarPunts(String nomEstadistica, String nom, int puntsRestants, int puntsTotals) {
