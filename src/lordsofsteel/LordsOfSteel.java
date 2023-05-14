@@ -367,11 +367,12 @@ public class LordsOfSteel {
                     System.out.println("Però " + defensor.getNom() + " l'ha esquivat!");
                     if (defensor instanceof NanCaos || defensor instanceof HumaCaos || defensor instanceof MitjaCaos
                         || defensor instanceof MaiaCaos) {
-                        if (defensor.contraatac(dau1, dau2, dau3) && atacant.getPS() - defensor.getPD() > 0) {
+                        boolean contraatac = defensor.contraatac(dau1, dau2, dau3);
+                        if (contraatac && atacant.getPS() - defensor.getPD() > 0) {
                             System.out.println(defensor.getNom() + " encerta el contraatac! A " + atacant.getNom() + " li queden "
                                                 + (atacant.getPS() - defensor.getPD() + " punts de vida"));
                             atacant.setPS(atacant.getPS() - defensor.getPD());
-                        } else if (defensor.contraatac(dau1, dau2, dau3) && atacant.getPS() - defensor.getPD() <= 0) {
+                        } else if (contraatac && atacant.getPS() - defensor.getPD() <= 0) {
                             System.out.println(defensor.getNom() + " encerta el contraatac! A " + atacant.getNom() 
                                                 + " ja no li punts de vida");
                             atacant.setPS(atacant.getPS() - defensor.getPD());
