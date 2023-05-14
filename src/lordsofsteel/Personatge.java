@@ -163,4 +163,10 @@ public abstract class Personatge {
             System.out.println("Els PS ja estan al màxim (" + this.PS + "/" + PSInicials + ")");
         }
     }
+    
+    public boolean contraatac(Dau... dau) {
+        int tirada = dau[0].llencar() + dau[1].llencar() + dau[2].llencar();
+        System.out.println("Tirada contraatac: " + tirada);
+        return tirada <= this.PA * 0.5;
+    }
 }
