@@ -146,4 +146,21 @@ public abstract class Personatge {
     public int getPE() {
         return PE;
     }
+    
+    public void restaurarPS() {
+        int PSInicials = this.CON + this.FOR;
+        if (this.PS < PSInicials) {
+            int restaura = (int)(this.PS * 1.10);
+            if (restaura > PSInicials) {
+                restaura -= restaura - PSInicials;
+                System.out.println("PS restaurats al màxim (" + this.PS + "/" + PSInicials + ")");
+            } else {
+                System.out.println("PS restaurats un 10% (" + this.PS + "/" + PSInicials + " -> " + restaura + "/" + PSInicials + ")");
+            }
+            
+            this.setPS(restaura);
+        } else {
+            System.out.println("Els PS ja estan al màxim (" + this.PS + "/" + PSInicials + ")");
+        }
+    }
 }
