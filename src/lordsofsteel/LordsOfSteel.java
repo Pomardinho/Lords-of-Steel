@@ -339,7 +339,6 @@ public class LordsOfSteel {
         Dau dau2 = new Dau();
         Dau dau3 = new Dau();
         
-        /* Afegir efectes de devoció (instanceof) */
         int nRonda = 1;
         int defensorPSInicials = defensor.getPS();
         int atacantPSInicials = atacant.getPS();
@@ -354,15 +353,32 @@ public class LordsOfSteel {
                 System.out.println("Tirada defensor: " + tiradaDefensor);
 
                 if (tiradaDefensor > defensor.getPE()) {
-                    if (defensor.getPS() - atacant.getPD() < 0) {
+                    if (defensor.getPS() - atacant.getPD() <= 0) {
                         System.out.println("I encerta! A " + defensor.getNom() + " ja no li queden més punts de vida");
                     } else {
                         System.out.println("I encerta! A " + defensor.getNom() + " li queden " + (defensor.getPS() - atacant.getPD())
                                             + " punts de vida");
                     }
+                    
                     defensor.setPS(defensor.getPS() - atacant.getPD());
+                    if (atacant instanceof NanOrdre || atacant instanceof HumaOrdre || atacant instanceof MitjaOrdre
+                        || atacant instanceof MaiaOrdre) atacant.restaurarPS();
                 } else {
                     System.out.println("Però " + defensor.getNom() + " l'ha esquivat!");
+                    if (defensor instanceof NanCaos || defensor instanceof HumaCaos || defensor instanceof MitjaCaos
+                        || defensor instanceof MaiaCaos) {
+                        if (defensor.contraatac(dau1, dau2, dau3) && atacant.getPS() - defensor.getPD() > 0) {
+                            System.out.println(defensor.getNom() + " encerta el contraatac! A " + atacant.getNom() + " li queden "
+                                                + (atacant.getPS() - defensor.getPD() + " punts de vida"));
+                            atacant.setPS(atacant.getPS() - defensor.getPD());
+                        } else if (defensor.contraatac(dau1, dau2, dau3) && atacant.getPS() - defensor.getPD() <= 0) {
+                            System.out.println(defensor.getNom() + " encerta el contraatac! A " + atacant.getNom() 
+                                                + " ja no li punts de vida");
+                            atacant.setPS(atacant.getPS() - defensor.getPD());
+                        } else {
+                            System.out.println(defensor.getNom() + " no ha pogut contraatacar");
+                        }
+                    }
                 }
             } else {
                 System.out.println(atacant.getNom() + " ha fallat l'atac!");
@@ -376,10 +392,19 @@ public class LordsOfSteel {
         
         defensorInicial.setPS(defensorPSInicials);
         atacantInicial.setPS(atacantPSInicials);
-        System.out.println("\n" + defensor.getNom() + " ha guanyat el combat contra " + atacant.getNom() + "!");
-        defensor.setPex(defensor.getPex() + atacantPSInicials);
-        System.out.println("Com a recompensa rep " + atacantPSInicials + " punts d'experiència (PEX totals: " + defensor.getPex() + ")");
-        pujaNivell(defensor);
+        
+        if (atacant.getPS() <= 0) { // Guanya el defensor (atacant de l'ultima ronda)
+            System.out.println("\n" + defensor.getNom() + " ha guanyat el combat contra " + atacant.getNom() + "!");
+            defensor.setPex(defensor.getPex() + atacantPSInicials);
+            System.out.println("Com a recompensa rep " + atacantPSInicials + " punts d'experiència (PEX totals: " + defensor.getPex() + ")");
+            pujaNivell(defensor);
+        } else { // Guanya l'atacant (defensor de l'ultima ronda)
+            System.out.println("\n" + atacant.getNom() + " ha guanyat el combat contra " + defensor.getNom() + "!");
+            atacant.setPex(atacant.getPex() + defensorPSInicials);
+            System.out.println("Com a recompensa rep " + defensorPSInicials + " punts d'experiència (PEX totals: " + atacant.getPex() + ")");
+            pujaNivell(atacant);
+        }
+        
         sc.nextLine();
     }
     

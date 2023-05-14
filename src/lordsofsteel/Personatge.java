@@ -148,6 +148,7 @@ public abstract class Personatge {
     }
     
     public void restaurarPS() {
+        System.out.println("Gràcies a la devoció ordre, " + this.nom + " recupera PS");
         int PSInicials = this.CON + this.FOR;
         if (this.PS < PSInicials) {
             int restaura = (int)(this.PS * 1.10);
@@ -165,6 +166,7 @@ public abstract class Personatge {
     }
     
     public boolean contraatac(Dau... dau) {
+        System.out.println("Gràcies a la devoció caos, " + this.nom + " té l'oportunitat de contraatacar");
         int tirada = dau[0].llencar() + dau[1].llencar() + dau[2].llencar();
         System.out.println("Tirada contraatac: " + tirada);
         return tirada <= this.PA * 0.5;
